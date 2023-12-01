@@ -1,0 +1,54 @@
+/**
+ * int strncpy(char *dest, char *source, int n) {
+int i, last;
+i = 0;
+init_do:
+last = *source;
+*dest = last;
+source++;
+dest++;
+i++;
+if (i == n) goto exit_do;
+if (last != 0) goto init_do;
+exit_do:
+return i;
+}*/
+
+int strncpy(char *dest, char *source, int n){
+	int i, last;
+	i=0
+	init_do:
+	last = *source
+	*dest = last
+	source++
+	dest++
+	i++
+	if(i == n)
+		goto exit_while
+	if(last != 0)
+		goto init_do
+	exit_while:
+	return i
+}
+$s0 ->i // $t2 -> last // $a0 -> char *dest // $a1 -> *source // $a2 -> n
+strncpy:
+addi $sp, $sp, -4
+sw $s0, 0($sp)
+
+li $s0, 0
+
+init_do:
+	lb $t2, 0($a1)
+	sb $t2, 0($a0)
+	addi $a1, $a1, 1
+	addi $a0, $a0, 1
+	addi $s0, $s0, 1
+	beq $s0, $a2, exit_do
+	bne $t2, $zero, init_do
+exit_do:
+
+move $v0, $s0
+lw $sp, 0($s0)
+addi $sp, $sp, 4
+
+jr $ra
